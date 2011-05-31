@@ -29,7 +29,7 @@ module Projit
       end
 
       def projects_root
-        Pathname.new File.expand_path("~/Projects")
+        Projit.config.projects_home
       end
 
   end
