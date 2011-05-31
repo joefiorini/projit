@@ -8,8 +8,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Joe Fiorini"]
   s.email       = ["joe@joefiorini.com"]
   s.homepage    = ""
-  s.summary     = %q{TODO: Write a gem summary}
-  s.description = %q{TODO: Write a gem description}
+  s.summary     = %q{Generate project directory structure based on a switchable template.}
+  s.description = %q{Generate project directory structure based on a switchable template.}
 
   s.rubyforge_project = "projit"
 
