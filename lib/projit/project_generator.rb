@@ -9,7 +9,7 @@ module Projit
     source_root "~/.projit"
 
     argument :project
-    class_options dropbox: false
+    class_options dropbox: false, github: nil
 
     def new
       apply projit_template
@@ -36,11 +36,26 @@ module Projit
           say "How can I create a link to your Dropbox if you haven't told me where in your Dropbox to create it? Please add a value for 'dropbox_home' to ~/.projit/config."
           return
         end
-        create_link dropbox_path_to(name), projects_home_path.join(project).to_s
+        create_link dropbox_path_to(name), project_full_path
+      end
+
+      def clone_from_github_into(name)
+        return unless options[:github]
+
+        unless hub_installed?
+          say "You will need hub to install from github. Install it with Homebrew using 'brew install hub'. This gives you secret Github powers. Not using Homebrew? Ditch MacPorts and Fink and get it now! https://github.com/mxcl/homebrew"
+        end
+
+        say_status :clone, github_path
+        `hub clone -p #{github_path} #{project_full_path.join(name)}`
       end
 
       def project_path
         Pathname.new project
+      end
+
+      def project_full_path
+        projects_home_path.join(project)
       end
 
       def project_base
@@ -53,6 +68,10 @@ module Projit
 
       def projects_home
         config.projects_home
+      end
+
+      def github_path
+        options[:github]
       end
 
       def dropbox_path
@@ -73,6 +92,11 @@ module Projit
 
       def config
         Projit.config
+      end
+
+      def hub_installed?
+        `which hub`
+        $?.success?
       end
 
   end

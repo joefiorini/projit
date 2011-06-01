@@ -72,4 +72,33 @@ describe Projit::ProjectGenerator do
 
   end
 
+  context "github integration" do
+
+    before do
+      subject.stub hub_installed?: true
+      subject.stub options:     { github: 'test/blah' },
+                   github_path: 'test/blah'
+    end
+
+    it "Doesn't clone from Github when option is not supplied" do
+      subject.stub options: {}
+      subject.should_not_receive :`
+      subject.send :clone_from_github_into, 'source'
+    end
+
+    it "Clones a repository from Github into specified directory" do
+      subject.stub project: 'home/test', options: { github: 'test/blah' }
+      (subject.should_receive :`).with "hub clone -p test/blah /Users/joe/Projects/home/test/source"
+      subject.send :clone_from_github_into, 'source'
+    end
+
+    it "Prints a warning if hub isn't installed" do
+      subject.stub :`
+      subject.stub hub_installed?: false
+      subject.should_receive :say
+      subject.send :clone_from_github_into, 'source'
+    end
+
+  end
+
 end
