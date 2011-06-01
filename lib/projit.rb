@@ -4,6 +4,7 @@ require 'yaml'
 module Projit
 
   autoload :CLI,              'projit/cli'
+  autoload :Config,           'projit/config'
   autoload :ProjectGenerator, 'projit/project_generator'
 
   def self.config
@@ -12,7 +13,7 @@ module Projit
   end
 
   def self.load_config!
-    YAML.load_file("~/.projit/config")
+    Config.new
   end
 
 end
