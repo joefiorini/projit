@@ -1,4 +1,5 @@
 require 'thor/group'
+require 'pathname'
 require 'projit'
 
 module Projit
