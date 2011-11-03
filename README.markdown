@@ -3,6 +3,12 @@
 
 Projit is a utility to specify directory structures for the different types of projects you work on and consistently generate them. It very nicely supports creating directories and files, copying directories and files, symlinking to dropbox and cloning source code directly from any git repository.
 
+## Installation
+
+  gem install projit
+
+If you don't use Ruby on a regular basis you may want to hold off until I get a chance to create some package manager recipes.
+
 ## Usage
 
   projit new personal/projit
@@ -19,7 +25,9 @@ Runs the recipe stored in ~/.projit/screencast.rb to setup a directory structure
 
 ## Contributions
 
-Contributions are encouraged, but given the very personal nature of workflows don't be suprised if I prefer creating recipes over adding to projit itself. Feel free to send pull requests though. I will not accept pull requests without a spec.
+Contributions are encouraged, but given the very personal nature of workflows don't be suprised if I prefer creating recipes over adding to projit itself. Feel free to send pull requests though, it's the only way for me to see how other people use this. I will not accept Ruby code without spec coverage.
+
+I would especially welcome package manager packages/tips. I don't want to require Rubygems for others to use this, but I have never packaged anything for distribution to brew/apt/emerge/port/etc.
 
 Now, go get your home directory organized!
 
