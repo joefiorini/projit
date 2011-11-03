@@ -11,6 +11,7 @@ module Projit
 
     argument :project
     class_options dropbox: false, git: nil
+    class_option :type, default: "template"
 
     def new
       apply projit_template
@@ -20,7 +21,7 @@ module Projit
     protected
 
     def projit_template
-      File.expand_path("~/.projit/template.rb")
+      "#{options[:type]}.rb"
     end
 
     def in_project_root(&block)
