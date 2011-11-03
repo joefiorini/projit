@@ -10,7 +10,7 @@ module Projit
     source_root "~/.projit"
 
     argument :project
-    class_options dropbox: false, github: nil
+    class_options dropbox: false, git: nil
 
     def new
       apply projit_template
@@ -40,15 +40,19 @@ module Projit
       create_link dropbox_path_to(name), project_full_path
     end
 
-    def clone_from_github_into(name)
-      return unless options[:github]
+    def clone_from_git_into(name)
+      return unless options[:git]
 
-      unless hub_installed?
-        say "You will need hub to install from github. Install it with Homebrew using 'brew install hub'. This gives you secret Github powers. Not using Homebrew? Ditch MacPorts and Fink and get it now! https://github.com/mxcl/homebrew"
+      git = 'git clone'
+
+      if !hub_installed? && git_path =~ /github/
+        say "Did you know you that the `hub` command gives you secret GitHub powers? Install it with Homebrew using 'brew install hub'. Not using Homebrew? Ditch MacPorts and Fink and get it now! https://github.com/mxcl/homebrew"
+      elsif hub_installed?
+        git = 'hub clone -p'
       end
 
-      say_status :clone, github_path
-      `hub clone -p #{github_path} #{project_full_path.join(name)}`
+      say_status :clone, git_path
+      `#{git} #{git_path} #{project_full_path.join(name)}`
     end
 
     def project_path
@@ -71,8 +75,8 @@ module Projit
       config.projects_home
     end
 
-    def github_path
-      options[:github]
+    def git_path
+      options[:git]
     end
 
     def dropbox_path

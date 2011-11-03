@@ -5,7 +5,7 @@ module Projit
   class CLI < Thor
 
     desc "new NAME", "Create project named NAME under current directory or CLIENT if specified"
-    class_options dropbox: false, github: nil
+    class_options dropbox: false, git: nil
     def new(name)
       args = ARGV.reject { |a| a == "new" }
       Projit::ProjectGenerator.start args

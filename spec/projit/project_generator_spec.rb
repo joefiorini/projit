@@ -72,33 +72,40 @@ describe Projit::ProjectGenerator do
 
   end
 
-  context "github integration" do
+  context "git integration" do
 
     before do
       subject.stub hub_installed?: true
-      subject.stub options:     { github: 'test/blah' },
-                   github_path: 'test/blah'
+      subject.stub options:     { git: 'test/blah' },
+                   git_path: 'test/blah'
     end
 
-    it "Doesn't clone from Github when option is not supplied" do
+    it "Doesn't clone from Git when option is not supplied" do
       subject.stub options: {}
       subject.should_not_receive :`
-      subject.send :clone_from_github_into, 'source'
+      subject.send :clone_from_git_into, 'source'
     end
 
-    it "Clones a repository from Github into specified directory" do
-      subject.stub project: 'home/test', options: { github: 'test/blah' }
-      (subject.should_receive :`).with "hub clone -p test/blah /Users/joe/Projects/home/test/source"
-      subject.send :clone_from_github_into, 'source'
+    it "Clones a repository from Git into specified directory" do
+      (subject.should_receive :`).with "hub clone -p test/blah /Users/joe/Projects/blah/source"
+      subject.send :clone_from_git_into, 'source'
     end
 
     it "Prints a warning if hub isn't installed" do
       subject.stub :`
+      subject.stub(:git_path) { "http://github.com/blah/diddy" }
       subject.stub hub_installed?: false
       subject.should_receive :say
-      subject.send :clone_from_github_into, 'source'
+      subject.send :clone_from_git_into, 'source'
     end
 
+    it "uses git if hub is not installed" do
+      subject.stub hub_installed?: false
+      subject.should_receive(:`).with /^git clone test\/blah/
+      subject.send :clone_from_git_into, 'source'
+    end
+
+  end
   end
 
 end
