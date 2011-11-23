@@ -20,12 +20,6 @@ describe Projit::ProjectGenerator do
       subject.stub :create_link
     end
 
-    it "Skips linking with Dropbox when option is not supplied" do
-      (subject.stub :options).and_return dropbox: false
-      subject.should_not_receive :create_link
-      subject.send :create_link_in_dropbox, "test"
-    end
-
     context "with Dropbox configured" do
 
       before do

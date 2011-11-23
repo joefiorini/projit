@@ -10,7 +10,7 @@ module Projit
     source_root "~/.projit"
 
     argument :project
-    class_options dropbox: false, git: nil
+    class_options git: nil
     class_option :type, default: "template"
 
     def new
@@ -33,7 +33,6 @@ module Projit
     end
 
     def create_link_in_dropbox(name)
-      return unless options[:dropbox]
       unless dropbox_configured?
         say "How can I create a link to your Dropbox if you haven't told me where in your Dropbox to create it? Please add a value for 'dropbox_home' to ~/.projit/config."
         return
