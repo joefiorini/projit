@@ -23,6 +23,22 @@ module Projit
       "#{template_name}.rb"
     end
 
+    def create_project_directory
+      in_project_root do
+        empty_directory project_name
+      end
+    end
+
+    def project_subdirs(subdirs)
+      @project_subdirs = subdirs
+    end
+
+    def create_project_subdirs
+      in_project_directory do
+        @project_subdirs.each { |d| empty_directory d }
+      end
+    end
+
     def in_project_root(&block)
       inside projects_home.to_s, &block
     end
