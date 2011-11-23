@@ -9,19 +9,18 @@ module Projit
 
     source_root "~/.projit"
 
-    argument :project
+    argument :type, default: "template"
+    argument :project, required: false
     class_options git: nil
-    class_option :type, default: "template"
 
     def new
       apply projit_template
     end
 
-
     protected
 
     def projit_template
-      "#{options[:type]}.rb"
+      "#{template_name}.rb"
     end
 
     def in_project_root(&block)
@@ -29,7 +28,7 @@ module Projit
     end
 
     def in_project_directory(&block)
-      inside projects_home_path.join(project), &block
+      inside projects_home_path.join(project_name), &block
     end
 
     def create_link_in_dropbox(name)
@@ -56,11 +55,19 @@ module Projit
     end
 
     def project_path
-      Pathname.new project
+      Pathname.new project_name
+    end
+
+    def project_name
+      project || type
+    end
+
+    def template_name
+      (project && type) || "template"
     end
 
     def project_full_path
-      projects_home_path.join(project)
+      projects_home_path.join(project_name)
     end
 
     def project_base

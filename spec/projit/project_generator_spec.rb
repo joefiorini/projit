@@ -102,9 +102,13 @@ describe Projit::ProjectGenerator do
   end
 
   context "support project types" do
-    it "uses type parameter to find the template script" do
-      subject.stub(options: { type: "web_application" })
+    it "uses type argument to find the template script" do
+      subject.stub(type: "web_application")
       subject.send(:projit_template).should eq "web_application.rb"
+    end
+    it "uses type argument for project name if name isn't specified" do
+      subject.stub(type: "project", name: nil)
+      subject.send(:project_name).should eq "project"
     end
   end
 

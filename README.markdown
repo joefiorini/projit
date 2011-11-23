@@ -18,7 +18,7 @@ This will run the recipe you have installed in `~/.projit/template.rb`. To get t
 
 This will run the same recipe but also clone the specified git repository (assuming you have `clone_from_git` in your recipe).
 
-    projit new personal/projit\_demo --type screencast
+    projit new screencast personal/projit_demo
 
 Runs the recipe stored in `~/.projit/screencast.rb` to setup a directory structure for screencasting. To get the generator that I use for screencasting download [this gist][screencasting] (structure stolen from @topfunky).
 

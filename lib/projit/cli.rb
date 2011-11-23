@@ -4,9 +4,9 @@ require 'projit'
 module Projit
   class CLI < Thor
 
-    desc "new NAME", "Create project named NAME under current directory or CLIENT if specified"
-    class_options git: nil, type: nil
-    def new(name)
+    desc "new TYPE NAME", "Create project named NAME under current directory using the template specified by TYPE"
+    class_options git: nil
+    def new(type, name=nil)
       args = ARGV.reject { |a| a == "new" }
       Projit::ProjectGenerator.start args
     end
