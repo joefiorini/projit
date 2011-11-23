@@ -22,6 +22,10 @@ This will run the same recipe but also clone the specified git repository (assum
 
 Runs the recipe stored in `~/.projit/screencast.rb` to setup a directory structure for screencasting. To get the generator that I use for screencasting download [this gist][screencasting] (structure stolen from @topfunky).
 
+## Templates
+
+Projit makes a few methods available to you to assist you in creating your directory structure. Use `project_name` to get access to the name you specified at the command line. `create_project_directory` will create the directory specified by "name" at your project root; its counterpart `create_project_subdirs` will create the directories you specified by calling `project_subdirs` under the project. Finally, `create_link_in_dropbox` will symlink your project to Dropbox (add a `dropbox_home` option to ~/.projit/config).
+
 ## Contributions
 
 Contributions are encouraged, but given the very personal nature of workflows don't be suprised if I prefer creating recipes over adding to projit itself. Feel free to send pull requests though, it's the only way for me to see how other people use this. I will not accept Ruby code without spec coverage.
