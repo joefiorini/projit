@@ -71,7 +71,7 @@ module Projit
     end
 
     def project_path
-      Pathname.new project_name
+      Pathname.new File.join(projects_home, project_name)
     end
 
     def project_name

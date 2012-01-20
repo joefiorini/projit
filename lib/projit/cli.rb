@@ -11,5 +11,12 @@ module Projit
       Projit::ProjectGenerator.start args
     end
 
+    desc "destroy NAME", "Delete project stored in the directory named NAME"
+    def destroy name
+      path = File.join(Projit.config.projects_home, name)
+      puts "Removing project at #{path.inspect}"
+      FileUtils.rm_rf path
+    end
+
   end
 end
